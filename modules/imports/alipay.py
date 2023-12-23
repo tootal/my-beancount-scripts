@@ -43,7 +43,7 @@ class Alipay(Base):
         reader = DictReaderStrip(f, delimiter=',')
         transactions = []
         for row in reader:
-            if row['交易状态'] == '交易关闭' and row['资金状态'] == '':
+            if row['交易状态'] == '交易关闭':
                 continue
             if row['交易状态'] == '冻结成功':
                 continue
@@ -80,6 +80,12 @@ class Alipay(Base):
             meta['alipay_trade_no'] = alipay_trade_no
             meta['trade_time'] = str(time)
             meta['timestamp'] = str(time.timestamp()).replace('.0', '')
+            if '交易分类' in row:
+                meta['trade_class'] = row['交易分类']
+            if '收/付款方式' in row:
+                meta['pay_channel'] = row['收/付款方式']
+            if '对方账号' in row and row['对方账号'] != '/':
+                meta['payee_account'] = row['对方账号']
             account = get_account_by_guess(row['交易对方'], name, time)
             flag = "*"
             if account == "Expenses:Unknown":
@@ -137,7 +143,6 @@ class Alipay(Base):
             # print(b)
             if not self.deduplicate.find_duplicate(entry, amount, 'alipay_trade_no'):
                 transactions.append(entry)
-            break
 
         self.deduplicate.apply_beans()
         return transactions
