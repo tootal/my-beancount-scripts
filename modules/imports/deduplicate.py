@@ -67,7 +67,7 @@ class Deduplicate:
     def read_bean(self, filename):
         if filename in self.beans:
             return self.beans[filename]
-        with open(filename, 'r') as f:
+        with open(filename, 'r', encoding='utf-8') as f:
             text = f.read()
             self.beans[filename] = text.split('\n')
         return self.beans[filename]
@@ -102,6 +102,5 @@ class Deduplicate:
         for filename in self.beans:
             if filename[0] == '<':
                 continue
-            copyfile(filename, filename + '.bak')
-            with open(filename, 'w') as f:
+            with open(filename, 'w', encoding='utf-8') as f:
                 f.write('\n'.join(self.beans[filename]))

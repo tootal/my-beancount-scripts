@@ -1,7 +1,5 @@
 import re
 
-import dateparser
-
 
 def get_eating_account(from_user, description, time=None):
     if time == None or not hasattr(time, 'hour'):
@@ -40,7 +38,7 @@ accounts = {
 }
 
 descriptions = {
-    #'滴滴打车|滴滴快车': get_didi,
+    '高德.*打车': 'Expenses:Traffic:Taxi',
     '余额宝.*收益发放': 'Assets:Company:Alipay:MonetaryFund',
     '转入到余利宝': 'Assets:Bank:MyBank',
     '花呗收钱服务费': 'Expenses:Fee',
