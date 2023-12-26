@@ -30,7 +30,7 @@ credit_cards = {
 }
 
 accounts = {
-    "余额宝": 'Assets:Company:Alipay:MonetaryFund',
+    "余额宝": 'Assets:AliPay:MonetaryFund',
     '余利宝': 'Assets:Bank:MyBank',
     '花呗': 'Liabilities:Company:Huabei',
     '建设银行': 'Liabilities:CreditCard:CCB',
@@ -39,10 +39,10 @@ accounts = {
 
 descriptions = {
     '高德.*打车': 'Expenses:Traffic:Taxi',
-    '余额宝.*收益发放': 'Assets:Company:Alipay:MonetaryFund',
+    '余额宝.*收益发放': 'Assets:AliPay:MonetaryFund',
     '转入到余利宝': 'Assets:Bank:MyBank',
     '花呗收钱服务费': 'Expenses:Fee',
-    '自动还款-花呗.*账单': 'Liabilities:Company:Huabei',
+    '.*花呗.*还款.*账单': 'Liabilities:AliPay:AntCreditPay',
     '信用卡自动还款|信用卡还款': get_credit_return,
     '外卖订单': get_eating_account,
     '美团订单': get_eating_account,

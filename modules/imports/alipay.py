@@ -117,10 +117,23 @@ class Alipay(Base):
                 amount = -amount
             elif money_status == '资金转移':
                 data.create_simple_posting(entry, Account支付宝, None, None)
+            elif money_status == '不计收支':
+                if name.startswith('退款'):
+                    price = -price
+                    data.create_simple_posting(entry, Account支付宝, None, None)
+                elif name.startswith('花呗主动还款'):
+                    price = -price
+                    data.create_simple_posting(entry, Account支付宝, None, None)
+                elif re.findall('余额宝.*收益发放', name):
+                    data.create_simple_posting(entry, 'Income:PassiveIncome:MoneyFund', price, None)
+                elif re.findall('余额宝.*更换货基转入', name):
+                    continue
+                else:
+                    raise RuntimeError('Unknown money status')
             elif money_status in ['收入', '已收入']:
                 if row['交易状态'] == '退款成功':
                     # 收钱码收款时，退款成功时资金状态为已支出
-                    price = '-' + price
+                    price = -price
                     data.create_simple_posting(entry, Account支付宝, None, None)
                 else:
                     income = get_income_account_by_guess(
@@ -133,6 +146,7 @@ class Alipay(Base):
             else:
                 print('Unknown status')
                 print(row)
+                raise RuntimeError('Unknown money status')
 
             data.create_simple_posting(entry, account, price, 'CNY')
             if '服务费（元）' in row and row['服务费（元）'] != '0.00':
