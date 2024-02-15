@@ -38,7 +38,7 @@ accounts = {
 }
 
 descriptions = {
-    '高德.*打车': 'Expenses:Traffic:Taxi',
+    '高德.*打车': 'Expenses:Transport:Traffic:Fee',
     '余额宝.*收益发放': 'Assets:AliPay:MonetaryFund',
     '转入到余利宝': 'Assets:Bank:MyBank',
     '花呗收钱服务费': 'Expenses:Fee',

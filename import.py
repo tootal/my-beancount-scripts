@@ -2,9 +2,10 @@ import argparse
 
 from beancount import loader
 from beancount.parser import parser, printer
-
+from beancount.core import display_context
 from modules.imports.alipay import Alipay
 from modules.imports.wechat import WeChat
+from decimal import Decimal
 
 parser = argparse.ArgumentParser("import")
 parser.add_argument("--path", help="CSV Path")
@@ -34,7 +35,9 @@ if instance == None:
 new_entries = instance.parse()
 
 with open(args.out, 'w', encoding='utf-8') as f:
-    printer.print_entries(new_entries, file=f)
+    dcontext = display_context.DisplayContext()
+    dcontext.update(Decimal('0.01'))
+    printer.print_entries(new_entries, dcontext=dcontext, file=f)
 
 print('Outputed to ' + args.out)
 exit(0)

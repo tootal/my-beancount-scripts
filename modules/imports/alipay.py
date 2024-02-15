@@ -98,7 +98,7 @@ class Alipay(Base):
                 meta['shop_trade_no'] = row['商家订单号']
 
             meta = data.new_metadata(
-                'beancount/core/testing.beancount',
+                'beancount/moneybook.beancount',
                 12345,
                 meta
             )
@@ -126,7 +126,7 @@ class Alipay(Base):
                     data.create_simple_posting(entry, Account支付宝, None, None)
                 elif re.findall('余额宝.*收益发放', name):
                     data.create_simple_posting(entry, 'Income:PassiveIncome:MoneyFund', price, None)
-                elif re.findall('余额宝.*更换货基转入', name):
+                elif re.findall('(余额宝.*更换货基转入|支付宝转入到余利宝|余额宝-自动转入|蚂蚁财富.*买入|转账收款到余额宝)', name):
                     continue
                 else:
                     raise RuntimeError('Unknown money status')
