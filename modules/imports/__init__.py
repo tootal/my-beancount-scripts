@@ -8,10 +8,10 @@ def replace_flag(entry, flag):
     return entry._replace(flag='!')
 
 
-def get_account_by_guess(from_user, description, time=None):
+def get_account_by_guess(from_user, description, time=None, trade_class=""):
     if description != '':
         for key, value in descriptions.items():
-            if description_res[key].findall(description):
+            if description_res[key].findall(from_user + description + trade_class):
                 if callable(value):
                     return value(from_user, description, time)
                 else:
@@ -24,8 +24,7 @@ def get_account_by_guess(from_user, description, time=None):
             else:
                 return value
             break
-    return "Expenses:Unknown"
-
+    return "Expenses:Others:Unknown"
 
 def get_income_account_by_guess(from_user, description, time=None):
     for key, value in incomes.items():
@@ -34,11 +33,16 @@ def get_income_account_by_guess(from_user, description, time=None):
     return "Income:Unknown"
 
 
-def get_account_by_name(name, time=None):
-    if accounts.get(name, '') == '':
-        return "Unknown:" + name
-    else:
-        return accounts.get(name)
+def get_pay_account_by_pay_channel(pay_channel):
+    if pay_channel != '':
+        for key, value in accounts.items():
+            if account_res[key].findall(pay_channel):
+                if callable(value):
+                    return value(pay_channel)
+                else:
+                    return value
+        raise RuntimeError('Unknown pay_channel')
+    return "Assets:Unknown"
 
 
 class DictReaderStrip(csv.DictReader):

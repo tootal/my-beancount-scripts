@@ -8,12 +8,13 @@ from beancount.core import data
 from beancount.core.data import Note, Transaction
 
 from . import (DictReaderStrip, get_account_by_guess,
-               get_income_account_by_guess)
+               get_income_account_by_guess,
+               get_pay_account_by_pay_channel)
 from .base import Base
 from .deduplicate import Deduplicate
 
-Account支付宝 = 'Assets:Company:Alipay:StupidAlipay'
-
+AccountHuaBei = 'Liabilities:AliPay:AntCreditPay'
+AccountYuEBao = 'Assets:AliPay:MonetaryFund'
 
 class Alipay(Base):
 
@@ -86,11 +87,13 @@ class Alipay(Base):
                 meta['pay_channel'] = row['收/付款方式']
             if '对方账号' in row and row['对方账号'] != '/':
                 meta['payee_account'] = row['对方账号']
-            account = get_account_by_guess(row['交易对方'], name, time)
+            expenses_account = get_account_by_guess(row['交易对方'], name, time, meta['trade_class'])
+            pay_account = get_pay_account_by_pay_channel(meta['pay_channel'])
             flag = "*"
-            if account == "Expenses:Unknown":
+            if expenses_account == "Expenses:Unknown":
                 flag = "!"
-
+            if pay_account == 'Assets:Unknown':
+                flag = '!'
             if row['备注'] != '':
                 meta['note'] = row['备注']
 
@@ -113,19 +116,18 @@ class Alipay(Base):
             )
             price = amount
             if money_status in ['支出', '已支出']:
-                data.create_simple_posting(entry, Account支付宝, None, None)
-                amount = -amount
+                data.create_simple_posting(entry, pay_account, -price, 'CNY')
             elif money_status == '资金转移':
-                data.create_simple_posting(entry, Account支付宝, None, None)
+                data.create_simple_posting(entry, pay_account, price, 'CNY')
             elif money_status == '不计收支':
                 if name.startswith('退款'):
+                    data.create_simple_posting(entry, pay_account, price, 'CNY')
                     price = -price
-                    data.create_simple_posting(entry, Account支付宝, None, None)
                 elif name.startswith('花呗主动还款'):
                     price = -price
-                    data.create_simple_posting(entry, Account支付宝, None, None)
+                    data.create_simple_posting(entry, pay_account, price, 'CNY')
                 elif re.findall('余额宝.*收益发放', name):
-                    data.create_simple_posting(entry, 'Income:PassiveIncome:MoneyFund', price, None)
+                    data.create_simple_posting(entry, 'Income:PassiveIncome:MoneyFund', -price, 'CNY')
                 elif re.findall('(余额宝.*更换货基转入|支付宝转入到余利宝|余额宝-自动转入|蚂蚁财富.*买入|转账收款到余额宝)', name):
                     continue
                 else:
@@ -134,21 +136,19 @@ class Alipay(Base):
                 if row['交易状态'] == '退款成功':
                     # 收钱码收款时，退款成功时资金状态为已支出
                     price = -price
-                    data.create_simple_posting(entry, Account支付宝, None, None)
+                    data.create_simple_posting(entry, pay_account, price, 'CNY')
                 else:
                     income = get_income_account_by_guess(
                         row['交易对方'], name, time)
                     if income == 'Income:Unknown':
                         entry = entry._replace(flag='!')
-                    data.create_simple_posting(entry, income, None, None)
-                    if flag == "!":
-                        account = Account支付宝
+                    data.create_simple_posting(entry, income, -price, 'CNY')
             else:
                 print('Unknown status')
                 print(row)
                 raise RuntimeError('Unknown money status')
 
-            data.create_simple_posting(entry, account, price, 'CNY')
+            data.create_simple_posting(entry, expenses_account, price, 'CNY')
             if '服务费（元）' in row and row['服务费（元）'] != '0.00':
                 data.create_simple_posting(
                     entry, 'Expenses:Finance:Fee', row['服务费（元）'], 'CNY')

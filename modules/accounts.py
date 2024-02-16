@@ -31,24 +31,36 @@ credit_cards = {
 
 accounts = {
     "余额宝": 'Assets:AliPay:MonetaryFund',
-    '余利宝': 'Assets:Bank:MyBank',
-    '花呗': 'Liabilities:Company:Huabei',
-    '建设银行': 'Liabilities:CreditCard:CCB',
-    '零钱': 'Assets:Balances:WeChat',
+    "(账户)?余额": 'Assets:AliPay:Balance',
+    '花呗': 'Liabilities:AliPay:AntCreditPay',
+    '招商银行储蓄卡': 'Assets:DebitCard:ChinaMerchantsBank',
+    '招商银行信用卡': 'Liabilities:CreditCard:ChinaMerchantsBank',
+    '中国银行储蓄卡': 'Assets:DebitCard:BankOfChina:9704',
+    '中国银行信用卡': 'Liabilities:CreditCard:BankOfChina',
+    '平安银行信用卡': 'Liabilities:CreditCard:PingAnBank',
+    '广发银行信用卡': 'Liabilities:CreditCard:ChinaGuangfaBank',
+    '交通银行信用卡': 'Liabilities:CreditCard:BankOfCommunications',
+    '工商银行储蓄卡': 'Assets:DebitCard:IndustrialAndCommercialBankOfChina',
 }
 
 descriptions = {
     '高德.*打车': 'Expenses:Transport:Traffic:Fee',
     '余额宝.*收益发放': 'Assets:AliPay:MonetaryFund',
-    '转入到余利宝': 'Assets:Bank:MyBank',
-    '花呗收钱服务费': 'Expenses:Fee',
     '.*花呗.*还款.*账单': 'Liabilities:AliPay:AntCreditPay',
-    '信用卡自动还款|信用卡还款': get_credit_return,
-    '外卖订单': get_eating_account,
-    '美团订单': get_eating_account,
-    '上海交通卡发行及充值': 'Expenses:Transport:Card',
-    '地铁出行': 'Expenses:Transport:City',
-    '火车票': 'Expenses:Travel:Transport',
+    '好医保': 'Expenses:Others:Service:Insure',
+    '牙刷': 'Expenses:Life:PersonalCare',
+    '(加油|充电订单免密支付|特来电)': 'Expenses:Transport:Traffic:Fuel',
+    '(高速)?通行费': 'Expenses:Transport:Traffic:Usage',
+    '(服饰|(休闲|运动)裤|马登(工装)?)': 'Expenses:Dress:Clothing',
+    '(地铁|骑行卡)': 'Expenses:Transport:Traffic:Fee',
+    '智能货柜消费': 'Expenses:Food:Beverage',
+    '(寄件费|运费)': 'Expenses:Transport:Communicate:PostalService',
+    '(阿里云|话费充值)': 'Expenses:Transport:Communicate:Telecom',
+    '酒店': 'Expenses:Others:Service:Hotel',
+    '(美食|朴朴)': 'Expenses:Food:Serve',
+    '书籍': 'Expenses:CultureRecreation:Stuff',
+    '水费': 'Expenses:Housing:Consume:Water',
+    '理疗': 'Expenses:Health:Service:Visit',
 }
 
 anothers = {
@@ -62,3 +74,4 @@ incomes = {
 description_res = dict([(key, re.compile(key)) for key in descriptions])
 another_res = dict([(key, re.compile(key)) for key in anothers])
 income_res = dict([(key, re.compile(key)) for key in incomes])
+account_res = dict([(key, re.compile(key)) for key in accounts])
