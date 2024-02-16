@@ -123,12 +123,33 @@ class Alipay(Base):
                 if name.startswith('退款'):
                     data.create_simple_posting(entry, pay_account, price, 'CNY')
                     price = -price
-                elif name.startswith('花呗主动还款'):
+                elif re.findall('(花呗主动还款|(自|主)动还款-花呗.*账单)', name):
                     price = -price
                     data.create_simple_posting(entry, pay_account, price, 'CNY')
-                elif re.findall('余额宝.*收益发放', name):
-                    data.create_simple_posting(entry, 'Income:PassiveIncome:MoneyFund', -price, 'CNY')
-                elif re.findall('(余额宝.*更换货基转入|支付宝转入到余利宝|余额宝-自动转入|蚂蚁财富.*买入|转账收款到余额宝)', name):
+                elif re.findall('(余额宝.*收益发放|.*现金分红至余额宝)', name):
+                    data.create_simple_posting(entry, 'Assets:AliPay:MonetaryFund', price, 'CNY')
+                    price = -price
+                    expenses_account = 'Income:PassiveIncome:MoneyFund'
+                elif re.findall('余额宝-转出到(余额|银行卡)', name):
+                    data.create_simple_posting(entry, pay_account, price, 'CNY')
+                    price = -price
+                    expenses_account = 'Assets:AliPay:MonetaryFund'
+                elif re.findall('余额宝.*转入', name):
+                    expenses_account = 'Assets:AliPay:MonetaryFund'
+                    data.create_simple_posting(entry, pay_account, -price, 'CNY')
+                elif re.findall('余利宝-转出到(余额|银行卡)', name):
+                    data.create_simple_posting(entry, 'Assets:AliPay:YuLiBao', -price, 'CNY')
+                elif re.findall('余利宝.*转入', name):
+                    expenses_account = 'Assets:AliPay:YuLiBao'
+                    data.create_simple_posting(entry, pay_account, -price, 'CNY')
+                elif re.findall('备用金归还', name):
+                    expenses_account = 'Liabilities:AliPay:Imprest'
+                    data.create_simple_posting(entry, pay_account, -price, 'CNY')
+                elif re.findall('备用金取出至余额', name):
+                    expenses_account = 'Liabilities:AliPay:Imprest'
+                    data.create_simple_posting(entry, 'Assets:AliPay:Balance', price, 'CNY')
+                    price = -price
+                elif re.findall('(支付宝转入到余利宝|蚂蚁财富.*买入|转账收款到余额宝|.*卖出至银行卡|充值-普通充值|提现-实时提现|支付宝预授权|预授权解冻)', name):
                     continue
                 else:
                     raise RuntimeError('Unknown money status')

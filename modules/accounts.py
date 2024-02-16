@@ -31,6 +31,7 @@ credit_cards = {
 
 accounts = {
     "余额宝": 'Assets:AliPay:MonetaryFund',
+    "单车骑行卡抵扣": 'Assets:Hello:Card',
     "(账户)?余额": 'Assets:AliPay:Balance',
     '花呗': 'Liabilities:AliPay:AntCreditPay',
     '招商银行储蓄卡': 'Assets:DebitCard:ChinaMerchantsBank',
@@ -41,26 +42,31 @@ accounts = {
     '广发银行信用卡': 'Liabilities:CreditCard:ChinaGuangfaBank',
     '交通银行信用卡': 'Liabilities:CreditCard:BankOfCommunications',
     '工商银行储蓄卡': 'Assets:DebitCard:IndustrialAndCommercialBankOfChina',
+    '网商银行储蓄卡': 'Assets:DebitCard:MyBank',
+    '农业银行储蓄卡': 'Assets:DebitCard:AgriculturalBankOfChina',
 }
 
 descriptions = {
-    '高德.*打车': 'Expenses:Transport:Traffic:Fee',
     '余额宝.*收益发放': 'Assets:AliPay:MonetaryFund',
     '.*花呗.*还款.*账单': 'Liabilities:AliPay:AntCreditPay',
     '好医保': 'Expenses:Others:Service:Insure',
     '牙刷': 'Expenses:Life:PersonalCare',
-    '(加油|充电订单免密支付|特来电)': 'Expenses:Transport:Traffic:Fuel',
-    '(高速)?通行费': 'Expenses:Transport:Traffic:Usage',
-    '(服饰|(休闲|运动)裤|马登(工装)?)': 'Expenses:Dress:Clothing',
-    '(地铁|骑行卡)': 'Expenses:Transport:Traffic:Fee',
+    '(中国石油|加油|充电订单免密支付|特来电)': 'Expenses:Transport:Traffic:Fuel',
+    '(平安财产保险|租车|(高速)?通行费)': 'Expenses:Transport:Traffic:Usage',
+    '(迪卡侬|服饰|(休闲|运动)裤|马登(工装)?)': 'Expenses:Dress:Clothing',
+    '(火车票|滴滴快车|高德.*打车|T3出行|地铁|哈啰单车骑行|骑行卡|哈啰打车)': 'Expenses:Transport:Traffic:Fee',
     '智能货柜消费': 'Expenses:Food:Beverage',
-    '(寄件费|运费)': 'Expenses:Transport:Communicate:PostalService',
-    '(阿里云|话费充值)': 'Expenses:Transport:Communicate:Telecom',
+    '(中国邮政|寄件费|运费|货拉拉费用)': 'Expenses:Transport:Communicate:PostalService',
+    '(阿里云|(话费|流量).*充值|中国(电信|联通))': 'Expenses:Transport:Communicate:Telecom',
     '酒店': 'Expenses:Others:Service:Hotel',
-    '(美食|朴朴)': 'Expenses:Food:Serve',
+    '(美食|朴朴|华(南理)?工.*饭堂)': 'Expenses:Food:Serve',
     '书籍': 'Expenses:CultureRecreation:Stuff',
     '水费': 'Expenses:Housing:Consume:Water',
-    '理疗': 'Expenses:Health:Service:Visit',
+    '(理疗|校医室|人民医院)': 'Expenses:Health:Service:Visit',
+    '(剪映.*服务|省钱卡)': 'Expenses:CultureRecreation:Service',
+    '物业管理': 'Expenses:Housing:Maintenance:Property',
+    '(学贷还款|考试费)': 'Expenses:Education:High',
+    '美发': 'Expenses:Others:Service:Hairdressing',
 }
 
 anothers = {
