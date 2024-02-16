@@ -124,8 +124,7 @@ class Alipay(Base):
                     data.create_simple_posting(entry, pay_account, price, 'CNY')
                     price = -price
                 elif re.findall('(花呗主动还款|(自|主)动还款-花呗.*账单)', name):
-                    price = -price
-                    data.create_simple_posting(entry, pay_account, price, 'CNY')
+                    data.create_simple_posting(entry, pay_account, -price, 'CNY')
                 elif re.findall('(余额宝.*收益发放|.*现金分红至余额宝)', name):
                     data.create_simple_posting(entry, 'Assets:AliPay:MonetaryFund', price, 'CNY')
                     price = -price
