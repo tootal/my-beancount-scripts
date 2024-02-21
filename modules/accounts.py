@@ -44,6 +44,8 @@ accounts = {
     '工商银行储蓄卡': 'Assets:DebitCard:IndustrialAndCommercialBankOfChina',
     '网商银行储蓄卡': 'Assets:DebitCard:MyBank',
     '农业银行储蓄卡': 'Assets:DebitCard:AgriculturalBankOfChina',
+    '赣州银行储蓄卡': 'Assets:DebitCard:GanZhouBank',
+    '红包': 'Assets:Unknown',
 }
 
 descriptions = {
@@ -54,7 +56,7 @@ descriptions = {
     '(中国石油|加油|充电订单免密支付|特来电)': 'Expenses:Transport:Traffic:Fuel',
     '(平安财产保险|租车|(高速)?通行费)': 'Expenses:Transport:Traffic:Usage',
     '(迪卡侬|服饰|(休闲|运动)裤|马登(工装)?)': 'Expenses:Dress:Clothing',
-    '(火车票|滴滴快车|高德.*打车|T3出行|地铁|哈啰单车骑行|骑行卡|哈啰打车)': 'Expenses:Transport:Traffic:Fee',
+    '(公交|火车票|滴滴快车|高德.*打车|T3出行|地铁|哈啰单车骑行|骑行卡|哈啰打车)': 'Expenses:Transport:Traffic:Fee',
     '智能货柜消费': 'Expenses:Food:Beverage',
     '(中国邮政|寄件费|运费|货拉拉费用)': 'Expenses:Transport:Communicate:PostalService',
     '(阿里云|(话费|流量).*充值|中国(电信|联通))': 'Expenses:Transport:Communicate:Telecom',
@@ -63,7 +65,7 @@ descriptions = {
     '书籍': 'Expenses:CultureRecreation:Stuff',
     '水费': 'Expenses:Housing:Consume:Water',
     '(理疗|校医室|人民医院)': 'Expenses:Health:Service:Visit',
-    '(剪映.*服务|省钱卡)': 'Expenses:CultureRecreation:Service',
+    '(剪映.*(订阅|服务)|省钱卡)': 'Expenses:CultureRecreation:Service',
     '物业管理': 'Expenses:Housing:Maintenance:Property',
     '(学贷还款|考试费)': 'Expenses:Education:High',
     '美发': 'Expenses:Others:Service:Hairdressing',
@@ -75,6 +77,7 @@ anothers = {
 
 incomes = {
     '余额宝.*收益发放': 'Income:Trade:PnL',
+    '(抖音极速版|淘宝天天得现金活动)提现': 'Income:RedEnvelope',
 }
 
 description_res = dict([(key, re.compile(key)) for key in descriptions])

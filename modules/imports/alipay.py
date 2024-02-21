@@ -148,7 +148,7 @@ class Alipay(Base):
                     expenses_account = 'Liabilities:AliPay:Imprest'
                     data.create_simple_posting(entry, 'Assets:AliPay:Balance', price, 'CNY')
                     price = -price
-                elif re.findall('(支付宝转入到余利宝|蚂蚁财富.*买入|转账收款到余额宝|.*卖出至银行卡|充值-普通充值|提现-实时提现|支付宝预授权|预授权解冻)', name):
+                elif re.findall('支付宝转入到余利宝|蚂蚁财富.*(买入|卖出|赠送).*|转账收款到余额宝|.*卖出至银行卡|充值-普通充值|提现-(实时|快速)提现|支付宝预授权|(预授权|淘宝商品拍卖-)解冻|退保-.*|信用卡还款|红包奖励发放', name):
                     continue
                 else:
                     raise RuntimeError('Unknown money status')
@@ -163,6 +163,7 @@ class Alipay(Base):
                     if income == 'Income:Unknown':
                         entry = entry._replace(flag='!')
                     data.create_simple_posting(entry, income, -price, 'CNY')
+                    expenses_account = pay_account
             else:
                 print('Unknown status')
                 print(row)

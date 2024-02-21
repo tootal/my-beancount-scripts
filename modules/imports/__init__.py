@@ -28,7 +28,7 @@ def get_account_by_guess(from_user, description, time=None, trade_class=""):
 
 def get_income_account_by_guess(from_user, description, time=None):
     for key, value in incomes.items():
-        if income_res[key].findall(description):
+        if income_res[key].findall(from_user + description):
             return value
     return "Income:Unknown"
 
