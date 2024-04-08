@@ -34,7 +34,7 @@ accounts = {
     "单车骑行卡抵扣": 'Assets:Hello:Card',
     "(账户)?余额": 'Assets:AliPay:Balance',
     '花呗': 'Liabilities:AliPay:AntCreditPay',
-    '招商银行储蓄卡': 'Assets:DebitCard:ChinaMerchantsBank',
+    '招商银行储蓄卡': 'Assets:DebitCard:ChinaMerchantsBank:0387',
     '招商银行信用卡': 'Liabilities:CreditCard:ChinaMerchantsBank',
     '中国银行储蓄卡': 'Assets:DebitCard:BankOfChina:9704',
     '中国银行信用卡': 'Liabilities:CreditCard:BankOfChina:6649',
