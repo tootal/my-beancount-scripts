@@ -15,10 +15,10 @@ from . import (DictReaderStrip, get_account_by_guess,
 from .base import Base
 from .deduplicate import Deduplicate
 
-Account零钱通 = 'Assets:Company:WeChat:Lingqiantong'
-Account收入红包 = 'Income:RedBag'
-Account支出红包 = 'Expenses:RedBag'
-Account余额 = 'Assets:Balances:WeChat'
+Account零钱通 = 'Assets:WeChat:Lingqiantong'
+Account收入红包 = 'Income:RedEnvelope'
+Account支出红包 = 'Expenses:Others:RedEnvelope'
+Account余额 = 'Assets:WeChat:Pocket'
 
 
 class WeChat(Base):
@@ -50,6 +50,8 @@ class WeChat(Base):
             print("Importing {} at {}".format(row['商品'], row['交易时间']))
             meta = {}
             time = dateparser.parse(row['交易时间'])
+            meta['wechat_payee'] = row['交易对方']
+            meta['wechat_desc'] = row['商品']
             meta['wechat_trade_no'] = row['交易单号']
             meta['trade_time'] = row['交易时间']
             meta['timestamp'] = str(time.timestamp()).replace('.0', '')

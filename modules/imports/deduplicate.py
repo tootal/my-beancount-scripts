@@ -84,7 +84,7 @@ class Deduplicate:
         if filename[0] == '<':
             return
         lines = self.read_bean(filename)
-        lines[lineno - 1] += '\n	' + text
+        lines[lineno - 1] += '\n    ' + text
         print("Appended meta {} to {}:{}".format(text, filename, lineno))
 
     def update_transaction_flag(self, location, old_flag, new_flag):
@@ -93,8 +93,8 @@ class Deduplicate:
         if location[0] == '<':
             return
         file_items = location.split(':')
-        lineno = int(file_items[1])
-        lines = self.read_bean(file_items[0])
+        lineno = int(file_items[2])
+        lines = self.read_bean(file_items[0] + ':' + file_items[1])
         lines[lineno - 1] = lines[lineno - 1].replace(old_flag, new_flag, 1)
         print("Updated flag to {} at {}".format(new_flag, location))
 
