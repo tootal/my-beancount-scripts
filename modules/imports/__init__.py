@@ -24,7 +24,7 @@ def get_account_by_guess(from_user, description, time=None, trade_class=""):
             else:
                 return value
             break
-    return "Expenses:Others:Unknown"
+    return "Expenses:12-未知"
 
 def get_income_account_by_guess(from_user, description, time=None):
     for key, value in incomes.items():

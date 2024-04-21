@@ -66,24 +66,28 @@ accounts = {
 descriptions = {
     '余额宝.*收益发放': 'Assets:AliPay:MonetaryFund',
     '.*花呗.*还款.*账单': 'Liabilities:AliPay:AntCreditPay',
-    '好医保': 'Expenses:Others:Service:Insure',
-    '牙刷': 'Expenses:Life:PersonalCare',
-    '(中国石油|加油|充电订单免密支付|劲桩|特来电|壳牌充电|延长壳牌广东)': 'Expenses:Transport:Traffic:Fuel',
-    '(平安财产保险|租车|(高速)?通行费|停车场|停车费)': 'Expenses:Transport:Traffic:Usage',
-    '(迪卡侬|服饰|(休闲|运动)裤|马登(工装)?)': 'Expenses:Dress:Clothing',
-    '(公交|火车票|滴滴快车|高德.*打车|T3出行|地铁|哈啰单车骑行|骑行卡|哈啰打车|岭南通|羊城通)': 'Expenses:Transport:Traffic:Fee',
-    '智能货柜消费': 'Expenses:Food:Beverage',
-    '(中国邮政|寄件费|运费|货拉拉费用|悟空100)': 'Expenses:Transport:Communicate:PostalService',
-    '(阿里云|(话费|流量).*充值|中国(电信|联通))': 'Expenses:Transport:Communicate:Telecom',
-    '酒店': 'Expenses:Others:Service:Hotel',
-    '(美食|餐厅|烤肉店|朴朴|华(南理)?工.*饭堂|炒栗子|意面)': 'Expenses:Food:Serve',
-    '书籍|鲜花|景区门票': 'Expenses:CultureRecreation:Stuff',
-    '(水费|天天一泉售水机)': 'Expenses:Housing:Consume:Water',
-    '(理疗|校医室|人民医院)': 'Expenses:Health:Service:Visit',
-    '(剪映.*(订阅|服务)|省钱卡)': 'Expenses:CultureRecreation:Service',
-    '物业管理': 'Expenses:Housing:Maintenance:Property',
-    '(学贷还款|考试费)': 'Expenses:Education:High',
-    '美发': 'Expenses:Others:Service:Hairdressing',
+    '好医保': 'Expenses:09-保险:01-医疗',
+    '牙刷': 'Expenses:04-生活',
+    '(中国石油|加油)': 'Expenses:05-交通:02-加油',
+    '(充电订单免密支付|劲桩|特来电|壳牌充电|延长壳牌广东)': 'Expenses:05-交通:03-充电',
+    '(停车场|停车费)': 'Expenses:05-交通:04-停车',
+    '(平安财产保险)': 'Expenses:05-交通:05-保险',
+    '((高速)?通行费)': 'Expenses:05-交通:06-过路',
+    '(平安财产保险|租车|(高速)?通行费)': 'Expenses:Transport:Traffic:Usage',
+    '(迪卡侬|服饰|(休闲|运动)裤|马登(工装)?)': 'Expenses:02-服饰',
+    '(公交|火车票|滴滴快车|高德.*打车|T3出行|地铁|哈啰单车骑行|骑行卡|哈啰打车|岭南通|羊城通)': 'Expenses:05-交通:08-公交',
+    '智能货柜消费': 'Expenses:01-饮食:02-饮品',
+    '(中国邮政|寄件费|运费|货拉拉费用|悟空100)': 'Expenses:11-通信:02-邮递',
+    '(阿里云|(话费|流量).*充值|中国(电信|联通))': 'Expenses:11-通信:01-电信',
+    '酒店': 'Expenses:03-居住:04-酒店',
+    '(美食|餐厅|烤肉店|朴朴|华(南理)?工.*饭堂|炒栗子|意面)': 'Expenses:01-饮食:03-餐饮服务',
+    '书籍|鲜花|景区门票': 'Expenses:06-文化娱乐:03-用品',
+    '(水费|天天一泉售水机)': 'Expenses:03-居住:03-水电',
+    '(理疗|校医室|人民医院)': 'Expenses:07-医疗:01-服务',
+    '(剪映.*(订阅|服务)|省钱卡)': 'Expenses:06-文化娱乐:04-服务',
+    '物业管理': 'Expenses:03-居住:02-物业',
+    '(学贷还款|考试费)': 'Expenses:06-文化娱乐:01-教育',
+    '美发': 'Expenses:04-生活',
 }
 
 anothers = {
@@ -92,7 +96,7 @@ anothers = {
 
 incomes = {
     '余额宝.*收益发放': 'Income:Trade:PnL',
-    '(抖音极速版|淘宝天天得现金活动)提现': 'Income:RedEnvelope',
+    '(抖音极速版|淘宝天天得现金活动)提现': 'Income:04-红包',
 }
 
 description_res = dict([(key, re.compile(key)) for key in descriptions])

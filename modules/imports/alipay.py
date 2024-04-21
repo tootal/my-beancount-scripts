@@ -128,7 +128,7 @@ class Alipay(Base):
                 elif re.findall('(余额宝.*收益发放|.*现金分红至余额宝)', name):
                     data.create_simple_posting(entry, 'Assets:AliPay:MonetaryFund', price, 'CNY')
                     price = -price
-                    expenses_account = 'Income:PassiveIncome:MoneyFund'
+                    expenses_account = 'Income:05-被动收入'
                 elif re.findall('余额宝-转出到(余额|银行卡)', name):
                     data.create_simple_posting(entry, pay_account, price, 'CNY')
                     price = -price
