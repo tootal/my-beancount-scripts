@@ -51,7 +51,13 @@ class WeChat(Base):
             meta = {}
             time = dateparser.parse(row['交易时间'])
             meta['wechat_payee'] = row['交易对方']
-            meta['wechat_desc'] = row['商品']
+
+            if row['商品'] != '/':
+                meta['wechat_desc'] = row['商品']
+
+            if row['支付方式'] != '/':
+                meta['wechat_pay_channel'] = row['支付方式']
+
             meta['wechat_trade_no'] = row['交易单号']
             meta['trade_time'] = row['交易时间']
             meta['timestamp'] = str(time.timestamp()).replace('.0', '')
