@@ -13,8 +13,8 @@ from . import (DictReaderStrip, get_account_by_guess,
 from .base import Base
 from .deduplicate import Deduplicate
 
-AccountHuaBei = 'Liabilities:AliPay:AntCreditPay'
-AccountYuEBao = 'Assets:AliPay:MonetaryFund'
+AccountHuaBei = 'Liabilities:02-互联网金融:01-支付宝花呗'
+AccountYuEBao = 'Assets:01-流动资金:04-互联网金融:04-支付宝余额宝'
 
 class Alipay(Base):
 
@@ -92,7 +92,7 @@ class Alipay(Base):
             flag = "*"
             if expenses_account == "Expenses:Unknown":
                 flag = "!"
-            if pay_account == 'Assets:Unknown':
+            if pay_account == 'Assets:06-未知':
                 flag = '!'
             if row['备注'] != '':
                 meta['note'] = row['备注']
@@ -126,27 +126,27 @@ class Alipay(Base):
                 elif re.findall('(花呗主动还款|(自|主)动还款-花呗.*账单)', name):
                     data.create_simple_posting(entry, pay_account, -price, 'CNY')
                 elif re.findall('(余额宝.*收益发放|.*现金分红至余额宝)', name):
-                    data.create_simple_posting(entry, 'Assets:AliPay:MonetaryFund', price, 'CNY')
+                    data.create_simple_posting(entry, 'Assets:01-流动资金:04-互联网金融:04-支付宝余额宝', price, 'CNY')
                     price = -price
                     expenses_account = 'Income:05-被动收入'
                 elif re.findall('余额宝-转出到(余额|银行卡)', name):
                     data.create_simple_posting(entry, pay_account, price, 'CNY')
                     price = -price
-                    expenses_account = 'Assets:AliPay:MonetaryFund'
+                    expenses_account = 'Assets:01-流动资金:04-互联网金融:04-支付宝余额宝'
                 elif re.findall('余额宝.*转入', name):
-                    expenses_account = 'Assets:AliPay:MonetaryFund'
+                    expenses_account = 'Assets:01-流动资金:04-互联网金融:04-支付宝余额宝'
                     data.create_simple_posting(entry, pay_account, -price, 'CNY')
                 elif re.findall('余利宝-转出到(余额|银行卡)', name):
-                    data.create_simple_posting(entry, 'Assets:AliPay:YuLiBao', -price, 'CNY')
+                    data.create_simple_posting(entry, 'Assets:01-流动资金:04-互联网金融:05-支付宝余利宝', -price, 'CNY')
                 elif re.findall('余利宝.*转入', name):
-                    expenses_account = 'Assets:AliPay:YuLiBao'
+                    expenses_account = 'Assets:01-流动资金:04-互联网金融:05-支付宝余利宝'
                     data.create_simple_posting(entry, pay_account, -price, 'CNY')
                 elif re.findall('备用金归还', name):
-                    expenses_account = 'Liabilities:AliPay:Imprest'
+                    expenses_account = 'Liabilities:02-互联网金融:02-支付宝备用金'
                     data.create_simple_posting(entry, pay_account, -price, 'CNY')
                 elif re.findall('备用金取出至余额', name):
-                    expenses_account = 'Liabilities:AliPay:Imprest'
-                    data.create_simple_posting(entry, 'Assets:AliPay:Balance', price, 'CNY')
+                    expenses_account = 'Liabilities:02-互联网金融:02-支付宝备用金'
+                    data.create_simple_posting(entry, 'Assets:01-流动资金:04-互联网金融:02-支付宝余额', price, 'CNY')
                     price = -price
                 elif re.findall('支付宝转入到余利宝|蚂蚁财富.*(买入|卖出|赠送).*|转账收款到余额宝|.*卖出至银行卡|充值-普通充值|提现-(实时|快速)提现|支付宝预授权|(预授权|淘宝商品拍卖-)解冻|退保-.*|信用卡还款|红包奖励发放', name):
                     continue

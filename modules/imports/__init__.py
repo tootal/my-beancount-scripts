@@ -42,7 +42,7 @@ def get_pay_account_by_pay_channel(pay_channel):
                 else:
                     return value
         raise RuntimeError('Unknown pay_channel')
-    return "Assets:Unknown"
+    return "Assets:06-未知"
 
 
 class DictReaderStrip(csv.DictReader):

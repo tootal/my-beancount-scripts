@@ -15,7 +15,7 @@ from . import (DictReaderStrip, get_account_by_guess,
 from .base import Base
 from .deduplicate import Deduplicate
 
-AccountAssetUnknown = 'Assets:Unknown'
+AccountAssetUnknown = 'Assets:06-未知'
 Account余利宝 = accounts['余利宝'] if '余利宝' in accounts else 'Assets:Bank:MyBank'
 Account余额 = accounts['支付宝余额'] if '支付宝余额' in accounts else 'Assets:Balance:Alipay'
 

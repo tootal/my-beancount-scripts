@@ -17,7 +17,7 @@
       const fp = a => a.replace(/￥|¥/, '').trim()
       let p = parseFloat(fp($('.txt.count')[0].innerText))
       const t = parseFloat(fp($('.goods-total .txt')[0].innerText))
-      let asset = '  Assets:Unknown\n'
+      let asset = '  Assets:06-未知\n'
       let ecard = ''
       // 礼品卡处理
       const z = $('.txt.count')[0].parentNode.parentNode.children
@@ -61,13 +61,13 @@ ${asset}${ecard}
           return `
 ${t('.dealtime').split(' ')[0]} * "京东" "${t('.p-name')}"
   Expenses:Unknown   ${t('.amount').match(/([0-9.]+)/)[1]} CNY
-  Assets:Unknown
+  Assets:06-未知
 `.trim()
         } else {
           return `
 ${t('.dealtime').split(' ')[0]} * "京东" "请点击详情"
   Expenses:Unknown   ${t('.amount').match(/([0-9.]+)/)[1]} CNY
-  Assets:Unknown
+  Assets:06-未知
 `.trim()
         }
       }).join('\n\n')

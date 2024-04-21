@@ -18,7 +18,7 @@ from .deduplicate import Deduplicate
 Account零钱通 = 'Assets:WeChat:Lingqiantong'
 Account收入红包 = 'Income:04-红包'
 Account支出红包 = 'Expenses:08-人情:01-红包'
-Account余额 = 'Assets:WeChat:Pocket'
+Account余额 = 'Assets:01-流动资金:04-互联网金融:01-微信零钱'
 
 
 class WeChat(Base):

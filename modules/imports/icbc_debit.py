@@ -13,7 +13,7 @@ from . import DictReaderStrip, get_account_by_name
 from .base import Base
 from .deduplicate import Deduplicate
 
-AccountUnknown = 'Assets:Unknown'
+AccountUnknown = 'Assets:06-未知'
 
 
 class ICBCDebit():
