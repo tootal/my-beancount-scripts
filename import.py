@@ -5,6 +5,7 @@ from beancount.parser import parser, printer
 from beancount.core import display_context
 from modules.imports.alipay import Alipay
 from modules.imports.wechat import WeChat
+from modules.imports.abc_debit import ABCDebit
 from decimal import Decimal
 
 parser = argparse.ArgumentParser("import")
@@ -16,7 +17,7 @@ args = parser.parse_args()
 
 entries, errors, option_map = loader.load_file(args.entry)
 
-importers = [Alipay, WeChat]
+importers = [Alipay, WeChat, ABCDebit]
 instance = None
 for importer in importers:
     try:
